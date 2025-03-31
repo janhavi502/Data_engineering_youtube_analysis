@@ -1,25 +1,56 @@
-# Data_engineering_youtube_analysis
-YouTube Analysis Project 
-# Overview
-This project aims to securely manage, streamline, and perform analysis on the structured and semi-structured YouTube videos data based on the video categories and the trending metrics.
+# YouTube Trending Videos Data Pipeline and Analysis
 
-# Project Goals
-Data Ingestion — Build a mechanism to ingest data from different sources
-ETL System — I got data in raw format, transforming this data into the proper format
-Data lake — I got data from multiple sources so we need centralized repo to store them
-Scalability — As the size of our data increases, I made sure that the system scales with it
-Cloud — As we can’t process vast amounts of data on our local computer so I used the cloud, in this case, I used AWS
+<img width="1282" alt="image" src="https://github.com/user-attachments/assets/6414ec73-0086-4b15-9d83-7adb9d205326">
 
-# Services 
-Amazon S3: Amazon S3 is an object storage service that provides manufacturing scalability, data availability, security, and performance.
-AWS IAM: This is nothing but identity and access management which enables us to manage access to AWS services and resources securely.
-QuickSight: Amazon QuickSight is a scalable, serverless, embeddable, machine learning-powered business intelligence (BI) service built for the cloud.
-AWS Glue: A serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development.
-AWS Lambda: Lambda is a computing service that allows programmers to run code without creating or managing servers.
-AWS Athena: Athena is an interactive query service for S3 in which there is no need to load data it stays in S3.
+This project demonstrates a data architecture for processing and analyzing trending YouTube video data from multiple regions using AWS services. The architecture incorporates a data lake, data processing layers, and analytical access layers.
+
+## Dataset
+
+The dataset used in this project is sourced from Kaggle and contains statistics on daily popular YouTube videos. It includes details such as:
+- **Video title**
+- **Channel title**
+- **Publication time**
+- **Tags**
+- **Views**
+- **Likes and dislikes**
+- **Description**
+- **Comment count**
+- **Category ID** (varies by region)
+
+For more details, see the [dataset on Kaggle](https://www.kaggle.com/datasets/datasnaek/youtube-new).
+
+## Architecture Overview
+
+The data pipeline is designed with the following components:
+
+### Data Lake
+- **Landing Area**: Raw data from the Kaggle dataset is stored in S3 buckets for each region.
+- **Cleansed / Enriched**: Data is transformed, cleaned, and enriched using AWS Glue.
+- **Analytics / Reporting**: Processed data is stored for analytical queries and reporting.
+
+### Data Processing
+- **AWS Glue**: Used for data cataloging, classification, and ETL (Extract, Transform, Load) tasks.
+- **AWS Lambda**: Additional processing tasks or event-driven operations.
+
+### Data Flow
+1. **Source Systems**: Data ingestion starts with the YouTube dataset files stored locally, which are then uploaded to the S3 bucket using the S3 API.
+2. **Bulk Data Upload**: Bulk data is loaded into the Landing Area in the data lake.
+3. **Data Processing**: AWS Glue and AWS Lambda process and transform the data to prepare it for analysis.
+4. **Data Catalogue & Classification**: AWS Glue Data Catalog is used to classify and catalog the data for easy access.
+5. **Analytical Data Access**: Data can be queried using AWS Athena or loaded into Redshift (optional) for more complex analysis.
+
+### Target Systems
+- **AWS Athena**: Query the processed data in the data lake.
+- **Redshift (Optional)**: Data warehouse for complex analysis.
+- **Analytics Tools**: Data visualization and analysis can be performed using tools like:
+  - AWS QuickSight
+  - Power BI (Optional)
+  - Qlik (Optional)
+  - Notebooks (Jupyter or similar)
+
+### Monitoring and Alerts
+- **AWS CloudWatch**: Used for monitoring and alerting across the pipeline to ensure data integrity and process efficiency.
 
 
-# Dataset Used
-This Kaggle dataset contains statistics (CSV files) on daily popular YouTube videos over the course of many months. There are up to 200 trending videos published every day for many locations. The data for each region is in its own file. The video title, channel title, publication time, tags, views, likes and dislikes, description, and comment count are among the items included in the data. A category_id field, which differs by area, is also included in the JSON file linked to the region.
 
 
