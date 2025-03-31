@@ -7,15 +7,6 @@ This project demonstrates a data architecture for processing and analyzing trend
 ## Dataset
 
 The dataset used in this project is sourced from Kaggle and contains statistics on daily popular YouTube videos. It includes details such as:
-- **Video title**
-- **Channel title**
-- **Publication time**
-- **Tags**
-- **Views**
-- **Likes and dislikes**
-- **Description**
-- **Comment count**
-- **Category ID** (varies by region)
 
 For more details, see the [dataset on Kaggle](https://www.kaggle.com/datasets/datasnaek/youtube-new).
 
